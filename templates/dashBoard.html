@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myBoard</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Covid-19 Dashboard</h1>
+    </header>
+    <main>
+        <section class="wrapper">
+            <nav id="sidebar">
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="{% url 'myBoard:index' %}">Covid-19</a>
+                    </li>
+                    <li>
+                        <a>Others</a>
+                    </li>
+                    <li>
+                        <a>...</a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+        <section id="dashboard">
+            <article id="covid-state" class="info-card">
+                <h3 class="sub-title">지역별 코로나 발생률(10만명당)</h3>
+                <hr class="hr-style">
+                <div class="multi-graph">
+                    <div class="graph-box">
+                        {% autoescape off %}
+                            {{ kmap_plot }}
+                        {% endautoescape %}
+                    </div>
+                    <div class="graph-box">
+                        <h5 class="sub-title">코로나 발생률 순위</h5>
+                        <hr class="hr-style">
+                        {% autoescape off %}
+                            {{ stateR_plot }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </article>
+            <article id="covid-incdec" class="info-card">
+                <h3 class="sub-title">코로나 환자 증감</h3>
+                <hr class="hr-style">
+                <div id="covid-info">
+                    <h3>{{incDec}}</h3>
+                    <h6>국내: {{incDecK}}</h6>
+                    <h6>국외: {{incDecF}}</h6>
+                </div>
+            </article>
+            <article id="covid-total" class="info-card">
+                <h3 class="sub-title">코로나 누적 확진자</h3>
+                <hr class="hr-style">
+                <div class="graph-box">
+                    {% autoescape off %}
+                        {{ total_plot }}
+                    {% endautoescape %}
+                </div>
+            </article>
+            <article id="covid-death" class="info-card">
+                <h3 class="sub-title">사망자 수</h3>
+                <hr class="hr-style">
+                <div class="graph-box">
+                    {% autoescape off %}
+                        {{ death_plot }}
+                    {% endautoescape %}
+                </div>
+            </article>
+            <article id="covid-decide" class="info-card">
+                <h3 class="sub-title">확진자 수</h3>
+                <hr class="hr-style">
+                <div class="graph-box">
+                    {% autoescape off %}
+                        {{ decide_plot }}
+                    {% endautoescape %}
+                </div>
+            </article>
+            <article id="covid-vaccine" class="info-card">
+                <h3 class="sub-title">백신 접종률</h3>
+                <hr class="hr-style">
+                <div class="graph-box">
+                    {% autoescape off %}
+                        {{ vac_plot }}
+                    {% endautoescape %}
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
